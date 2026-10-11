@@ -24,9 +24,10 @@ export const translations = {
     checkUrgency: "Analyze Symptoms with AI",
     quickExamplesLabel: "Or select a common village case:",
     quickCases: [
+      { label: "Stage 4 Cancer / Oncology", text: "Patient diagnosed with 4th stage cancer with severe chronic pain, extreme weakness, and unable to eat." },
       { label: "Child Fever & Vomiting", text: "My 3-year-old child has high fever (102°F) for 2 days and vomiting everything." },
-      { label: "Severe Dehydration / Loose Motion", text: "Severe watery diarrhea 6 times since morning, feeling dizzy and dry mouth." },
       { label: "Chest Pressure & Breathlessness", text: "Elderly person with heavy chest tightness, cold sweating, and difficulty breathing." },
+      { label: "Severe Dehydration / Diarrhea", text: "Severe watery diarrhea 6 times since morning, feeling dizzy and dry mouth." },
       { label: "Rusty Nail Foot Injury", text: "Deep puncture wound in foot from a rusty nail while working on farmland 24 hours ago." }
     ],
     triageResultsTitle: "AI Clinical Assessment & Urgency Score",
@@ -112,9 +113,10 @@ export const translations = {
     checkUrgency: "AI द्वारा लक्षण जांच करें",
     quickExamplesLabel: "या सामान्य ग्रामीण उदाहरण चुनें:",
     quickCases: [
+      { label: "स्टेज 4 कैंसर / गंभीर ऑन्कोलॉजी", text: "मरीज को 4th stage cancer (चौथी स्टेज का कैंसर) है, अत्यधिक दर्द, असहनीय कमजोरी और भोजन निगलने में परेशानी है।" },
       { label: "बच्चे को तेज बुखार और उल्टी", text: "मेरे 3 साल के बच्चे को 2 दिन से तेज बुखार है और कुछ भी खाने पर उल्टी हो रही है।" },
-      { label: "दस्त और अत्यधिक कमजोरी", text: "सुबह से 6 बार पानी जैसा दस्त हुआ है, चक्कर आ रहे हैं और मुंह सूख रहा है।" },
       { label: "सीने में भारीपन और पसीना", text: "बुजुर्ग मरीज के सीने में तेज दबाव, सांस लेने में परेशानी और ठंडा पसीना आ रहा है।" },
+      { label: "दस्त और अत्यधिक कमजोरी", text: "सुबह से 6 बार पानी जैसा दस्त हुआ है, चक्कर आ रहे हैं और मुंह सूख रहा है।" },
       { label: "खेत में लोहे की कील लगना", text: "खेत में काम करते समय पैर में जंग लगी लोहे की कील गड़ गई, 24 घंटे हो गए हैं।" }
     ],
     triageResultsTitle: "AI क्लिनिकल विश्लेषण एवं गंभीरता स्तर",
