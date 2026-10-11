@@ -1,9 +1,53 @@
-// AI Service with Dual Engine:
-// 1. Google Gemini 2.0 Flash Multimodal API (Cloud Live Reasoning)
-// 2. Comprehensive Clinical Rule Engine (Edge/Offline Multi-Specialty Triage)
+// AI Service with Triple-Tier Clinical Intelligence:
+// 1. Infermedica Clinical Engine (Certified Medical Symptom & Triage API)
+// 2. Google Gemini 2.0 Flash Multimodal API (Conversational Multilingual Reasoning)
+// 3. Comprehensive Edge Clinical Decision Engine (WHO IMCI & ICMR Guidelines)
 
-export async function analyzeSymptoms(symptomsText, language = 'en', customApiKey = '') {
-  // Determine API key from parameter, localStorage, or Vite environment variable
+import { triageWithInfermedica } from './infermedicaService';
+
+export async function analyzeSymptoms(symptomsText, language = 'en', customApiKey = '', customInfermedica = null) {
+  // Check for Infermedica configuration (from arguments, localStorage, or env)
+  const infermedicaAppId = (
+    customInfermedica?.appId || 
+    localStorage.getItem('arogya_infermedica_app_id') || 
+    (typeof import.meta !== 'undefined' && import.meta.env?.VITE_INFERMEDICA_APP_ID) || 
+    ''
+  ).trim();
+
+  const infermedicaAppKey = (
+    customInfermedica?.appKey || 
+    localStorage.getItem('arogya_infermedica_app_key') || 
+    (typeof import.meta !== 'undefined' && import.meta.env?.VITE_INFERMEDICA_APP_KEY) || 
+    ''
+  ).trim();
+
+  const infermedicaUrl = (
+    customInfermedica?.baseUrl || 
+    localStorage.getItem('arogya_infermedica_url') || 
+    (typeof import.meta !== 'undefined' && import.meta.env?.VITE_INFERMEDICA_URL) || 
+    'https://api.infermedica.com/v3'
+  ).trim();
+
+  // Tier 1: Try Infermedica Certified Clinical API if credentials are present
+  if (infermedicaAppId && infermedicaAppKey) {
+    try {
+      const infermedicaResult = await triageWithInfermedica({
+        text: symptomsText,
+        appId: infermedicaAppId,
+        appKey: infermedicaAppKey,
+        baseUrl: infermedicaUrl,
+        language: language
+      });
+
+      if (infermedicaResult && infermedicaResult.urgency) {
+        return infermedicaResult;
+      }
+    } catch (err) {
+      console.warn("Infermedica clinical call had an issue, routing to secondary engines:", err);
+    }
+  }
+
+  // Tier 2: Check for Google Gemini 2.0 Flash API Key
   const apiKey = (
     customApiKey || 
     localStorage.getItem('arogya_gemini_key') || 
@@ -11,7 +55,6 @@ export async function analyzeSymptoms(symptomsText, language = 'en', customApiKe
     ''
   ).trim();
 
-  // If a valid Gemini API key is available, use live Gemini 2.0 Flash
   if (apiKey && apiKey.length > 10) {
     try {
       const systemInstruction = `You are ArogyaGram AI, a clinical decision support system designed for rural frontline health workers (ASHAs) and primary clinics.
@@ -54,24 +97,20 @@ Output strict, valid JSON with this exact schema:
         }
       }
     } catch (e) {
-      console.warn("Gemini API request failed or timed out. Falling back to clinical rule engine.", e);
+      console.warn("Gemini API request failed. Falling back to edge clinical rule engine.", e);
     }
   }
 
-  // Fallback to our Comprehensive Offline Clinical Decision Engine
+  // Tier 3: Edge Deterministic Clinical Decision Engine (WHO IMCI & ICMR Guidelines)
   return runComprehensiveClinicalTriage(symptomsText, language);
 }
 
-// Comprehensive Clinical Decision Engine (WHO IMCI, ICMR & National Health Mission Guidelines)
+// Comprehensive Edge Clinical Decision Engine
 function runComprehensiveClinicalTriage(text, language = 'en') {
   const lower = text.toLowerCase();
-
-  // Helper check
   const containsAny = (keywords) => keywords.some(k => lower.includes(k.toLowerCase()));
 
-  // -------------------------------------------------------------
   // 1. CANCER & ONCOLOGY / ADVANCED TUMOR TRIAGE (CRITICAL RED)
-  // -------------------------------------------------------------
   const cancerKeywords = [
     "cancer", "कैंसर", "carcinoma", "कार्सिनोमा", "tumor", "ट्यूमर", 
     "stage 4", "stage 3", "stage 2", "stage iv", "stage iii", "metastasis", 
@@ -128,9 +167,7 @@ function runComprehensiveClinicalTriage(text, language = 'en') {
     }
   }
 
-  // -------------------------------------------------------------
   // 2. CARDIOVASCULAR & STROKE / NEUROLOGICAL EMERGENCIES (RED)
-  // -------------------------------------------------------------
   const cardioNeuroKeywords = [
     "chest pain", "सीने में दर्द", "heart attack", "दिल का दौरा", "angina", 
     "stroke", "लकवा", "पक्षाघात", "paralysis", "seizure", "दौरा", "मिर्गी", "fit", 
@@ -184,9 +221,7 @@ function runComprehensiveClinicalTriage(text, language = 'en') {
     }
   }
 
-  // -------------------------------------------------------------
   // 3. TOXICOLOGY, TRAUMA, BITES & ACUTE OBSTETRIC (RED)
-  // -------------------------------------------------------------
   const acuteTraumaBiteKeywords = [
     "snake", "सांप", "poison", "जहर", "pesticide", "कीटनाशक", "insecticide", 
     "dog bite", "कुत्ता", "rabies", "fracture", "हड्डी टूट", "head injury", 
@@ -240,9 +275,7 @@ function runComprehensiveClinicalTriage(text, language = 'en') {
     }
   }
 
-  // -------------------------------------------------------------
   // 4. PEDIATRIC & RESPIRATORY CRITICAL RED FLAGS (RED)
-  // -------------------------------------------------------------
   const pediatricRespiratoryRed = [
     "chest indrawing", "पसली", "infant not feeding", "दूध नहीं पी", "breathless", 
     "सांस फूल", "oxygen", "ऑक्सीजन", "cyanosis", "नीला", "asthma attack", "दमा का दौरा", 
@@ -293,9 +326,7 @@ function runComprehensiveClinicalTriage(text, language = 'en') {
     }
   }
 
-  // -------------------------------------------------------------
   // 5. MODERATE (YELLOW) — PRIMARY HEALTH CENTER / CHRONIC CLINIC
-  // -------------------------------------------------------------
   const moderateKeywords = [
     "fever", "बुखार", "loose motion", "दस्त", "diarrhea", "vomiting", "उल्टी", 
     "dehydration", "कमजोरी", "diabetes", "sugar", "शुगर", "मधुमेह", "bp", "hypertension", 
@@ -350,9 +381,7 @@ function runComprehensiveClinicalTriage(text, language = 'en') {
     }
   }
 
-  // -------------------------------------------------------------
   // 6. MILD (GREEN) — HOME CARE & ASHA SUPERVISION
-  // -------------------------------------------------------------
   if (language === 'hi') {
     return {
       urgency: "GREEN",
