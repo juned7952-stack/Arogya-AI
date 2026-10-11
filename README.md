@@ -81,65 +81,10 @@ npm install
 # 3. Start local development server
 npm run dev
 ```
-
 Open `http://localhost:5173` in your browser.
-
 ### Production Build
 ```bash
 npm run build
 npm run preview
-```
-
----
-
-## 📱 How to Deploy Live (for Hackathon Submission Link)
-
-You can deploy the app to **Vercel** or **Netlify** for free in under 2 minutes:
-
-### Option A: Deploy via Vercel (Recommended)
-1. Push this folder to a GitHub repository.
-2. Visit [vercel.com](https://vercel.com) and click **"Add New Project"**.
-3. Import your `arogyagram-ai` GitHub repository.
-4. Keep the default settings (Framework Preset: **Vite**, Root Directory: `./`).
-5. Click **"Deploy"**. You will receive your live URL (e.g., `https://arogyagram-ai.vercel.app`).
-
-### Option B: Deploy via Netlify Drop
-1. Run `npm run build` to generate the `dist` folder.
-2. Go to [app.netlify.com/drop](https://app.netlify.com/drop).
-3. Drag and drop the `dist` folder directly onto the page to get an instant live URL.
-
----
-
-## 🎙️ Demo Video Script (2–3 Minutes)
-
-Use this script for your mandatory demo video in **English** or **Hindi**:
-
-### English Script:
-* **0:00 – 0:30 (Hook & Problem):**
-  > *"Hello judges! Over 70% of India's population lives in rural areas, where there is only one doctor for every 10,000 villagers. Frontline ASHA workers carry the entire burden of healthcare delivery with paper registers and no digital decision support. Furthermore, medical prescriptions printed in English cause over 40% of medication errors. That is why we built **ArogyaGram AI**."*
-* **0:30 – 1:15 (Voice Triage Demo):**
-  > *"Let's see it in action. A village mother comes to the clinic. She clicks the microphone and speaks in Hindi: 'मेरे 3 साल के बच्चे को 2 दिन से तेज बुखार और उल्टी है'. ArogyaGram AI instantly analyzes the symptoms and assigns a RED Critical Urgency with red-flag warning signs. With one tap on 'Listen', the system speaks the advice aloud in clear Hindi so even illiterate patients understand immediately."*
-* **1:15 – 1:50 (Medicine Scanner & ASHA Slip):**
-  > *"Next, patients often confuse pill schedules. In the Medicine tab, we scan a drug strip like Paracetamol or Amoxicillin. ArogyaGram generates a visual timetable with Sun and Moon icons, warns the patient never to stop antibiotics midway, and speaks the instructions aloud. Then, in the ASHA Referral tab, the health worker logs vitals and prints or WhatsApps an official digital referral slip to the hospital doctor."*
-* **1:50 – 2:20 (Offline Emergency & Tech Stack):**
-  > *"ArogyaGram works 100% offline on low-bandwidth 2G/3G networks using local clinical rule trees, with optional Gemini 2.0 Flash integration for cloud reasoning. It includes offline emergency protocols for snakebites, heatstroke, and burns."*
-* **2:20 – 2:40 (Conclusion & Social Impact):**
-  > *"ArogyaGram AI saves families ₹1,200 in unnecessary travel expenses, prevents drug resistance, and ensures no rural emergency goes unnoticed. Thank you!"*
-
----
-
-## 📜 Pitch Deck Summary (Mandatory Hackathon Item #3)
-
-Download the [Official Pitch Deck Slides](https://drive.google.com/drive/folders/1HcfyQEYE4-UQNhydTYV-2gEbA00cbJ4D?usp=sharing) and use this structured content:
-
-* **Slide a (Problem):** Acute doctor deficit (1:10,000+), English literacy barriers in prescriptions, delayed emergency triage.
-* **Slide b (Who is Affected):** 800M+ rural citizens, 1,000,000+ frontline ASHA/ANM workers, overburdened PHC physicians.
-* **Slide c (Solution):** Voice-first vernacular triage, visual medicine dosage timetable, digital referral tokens, offline emergency quickcards.
-* **Slide d (Technology / AI Used):** Google Gemini 2.0 Multimodal API, WHO/ICMR edge clinical decision trees, Web Speech API (Hindi/English).
-* **Slide e (Social Impact):** ₹1,200 saved per family per illness episode, 40% reduction in medication errors, golden-hour emergency escalation.
-* **Slide f (Scalability):** Phase 1 (PWA Web MVP), Phase 2 (WhatsApp & IVR Voice bot for feature phones), Phase 3 (Ayushman Bharat ABHA & PHC integration).
-
----
-
-## 📄 License
+```📄 License
 MIT License. Built for the **Social Impact Hackathon 2026** under the theme **Healthcare and Wellbeing**.
